@@ -2,7 +2,7 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import { ViewUser } from "./ViewUser";
 
-const users = new Array(10).fill(undefined).map((_, i) => ({ id: i + 1 }));
+const users = new Array(100).fill(undefined).map((_, i) => ({ id: i + 1 }));
 
 export default function Home() {
   return (
