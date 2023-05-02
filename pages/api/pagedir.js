@@ -3,6 +3,9 @@ const data = {
 };
 
 export default async function handler(req, res) {
-  data.current += 1;
+  data.current = req.query.userId;
+  await new Promise((resolve) =>
+    setTimeout(resolve, Math.floor(Math.random() * 1000))
+  );
   res.json(data);
 }

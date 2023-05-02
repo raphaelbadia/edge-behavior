@@ -5,6 +5,11 @@ const data = {
 };
 
 export async function GET(request) {
-  data.current += 1;
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get("userId");
+  data.current = id;
+  await new Promise((resolve) =>
+    setTimeout(resolve, Math.floor(Math.random() * 1000))
+  );
   return NextResponse.json(data);
 }
