@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { data } from "./data";
 
 export async function GET(request) {
+  console.log(request.headers.get("x-user-id"));
   const initial = data.current;
   await new Promise((resolve) =>
     setTimeout(resolve, Math.floor(Math.random() * 1000))
