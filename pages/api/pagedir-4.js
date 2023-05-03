@@ -1,4 +1,4 @@
-import { add, del, getAll } from "./pagedir.data";
+import { add, del, getAll } from "./pagedir4.data";
 
 export default async function handler(req, res) {
   const userId = req.headers["x-user-id"];
