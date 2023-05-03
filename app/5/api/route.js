@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { data } from "./data";
 
 export async function GET(request) {
-  console.log(request.headers.get("x-user-id"));
   const initial = data.current;
   await new Promise((resolve) =>
     setTimeout(resolve, Math.floor(Math.random() * 1000))
@@ -19,7 +18,13 @@ export async function GET(request) {
   );
   const inTheEnd = data.current;
   return NextResponse.json(
-    { initial, afterAdd, afterSub, inTheEnd },
+    {
+      user: request.headers.get("x-user-id"),
+      initial,
+      afterAdd,
+      afterSub,
+      inTheEnd,
+    },
     {
       headers: {
         "content-type": "application/json",

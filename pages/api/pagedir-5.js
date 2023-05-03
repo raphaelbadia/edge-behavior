@@ -1,7 +1,6 @@
 import { data } from "./pagedir-5.data";
 
 export default async function handler(req, res) {
-  console.log(req.headers["x-user-id"]);
   const initial = data.current;
   await new Promise((resolve) =>
     setTimeout(resolve, Math.floor(Math.random() * 1000))
@@ -17,5 +16,11 @@ export default async function handler(req, res) {
     setTimeout(resolve, Math.floor(Math.random() * 1000))
   );
   const inTheEnd = data.current;
-  res.json({ initial, afterAdd, afterSub, inTheEnd });
+  res.json({
+    user: req.headers["x-user-id"],
+    initial,
+    afterAdd,
+    afterSub,
+    inTheEnd,
+  });
 }
