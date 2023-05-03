@@ -14,7 +14,7 @@ export const ViewCount = ({ id }) => {
       const resp = await fetch(`/api/pagedir-5`, {
         signal,
         headers: {
-          "x-user-id": userId,
+          "x-user-id": id,
         },
       });
       const data = await resp.json();
@@ -33,7 +33,7 @@ export const ViewCount = ({ id }) => {
       const resp = await fetch(`5/api?ts=${new Date().toISOString()}`, {
         signal,
         headers: {
-          "x-user-id": userId,
+          "x-user-id": id,
         },
       });
       const data = await resp.json();
@@ -53,7 +53,7 @@ export const ViewCount = ({ id }) => {
       const resp = await fetch(`5/api/edge`, {
         signal,
         headers: {
-          "x-user-id": userId,
+          "x-user-id": id,
         },
       });
       const data = await resp.json();

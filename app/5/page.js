@@ -1,8 +1,6 @@
 import Image from "next/image";
 import { ViewCount } from "./View";
 
-const users = new Array(20).fill(undefined).map((_, i) => ({ id: i + 1 }));
-
 export default function Home() {
   return (
     <main>
