@@ -1,27 +1,29 @@
 import { NextResponse } from "next/server";
-
-const data = {
-  current: 0,
-};
+import { data } from "./data";
 
 export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const FUCKTHECACHE = searchParams.get("WHOCARES");
+  const initial = data.current;
   await new Promise((resolve) =>
     setTimeout(resolve, Math.floor(Math.random() * 1000))
   );
   data.current += 1;
+  const afterAdd = data.current;
   await new Promise((resolve) =>
     setTimeout(resolve, Math.floor(Math.random() * 1000))
   );
   data.current -= 1;
+  const afterSub = data.current;
   await new Promise((resolve) =>
     setTimeout(resolve, Math.floor(Math.random() * 1000))
   );
-  return NextResponse.json(data, {
-    headers: {
-      "content-type": "application/json",
-      "cache-control": "no-cache",
-    },
-  });
+  const inTheEnd = data.current;
+  return NextResponse.json(
+    { initial, afterAdd, afterSub, inTheEnd },
+    {
+      headers: {
+        "content-type": "application/json",
+        "cache-control": "private",
+      },
+    }
+  );
 }

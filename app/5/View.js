@@ -2,14 +2,14 @@
 import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-export const ViewCount = () => {
+export const ViewCount = ({ id }) => {
   const {
     data: pagedir,
     status: statusPagedir,
     isFetching: isFetchingPagedir,
     refetch: refetchPageDir,
   } = useQuery({
-    queryKey: ["5-pagedir"],
+    queryKey: ["5-pagedir", id],
     queryFn: async ({ signal }) => {
       const resp = await fetch(`/api/pagedir-5`, {
         signal,
@@ -25,7 +25,7 @@ export const ViewCount = () => {
     isFetching: isFetchingappdirNode,
     refetch: refetchAppDir,
   } = useQuery({
-    queryKey: ["5-appdirNode"],
+    queryKey: ["5-appdirNode", id],
     queryFn: async ({ signal }) => {
       const resp = await fetch(`5/api?ts=${new Date().toISOString()}`, {
         signal,
@@ -41,7 +41,7 @@ export const ViewCount = () => {
     isFetching: isFetchingappdirEdge,
     refetch: refetchAppDirEdge,
   } = useQuery({
-    queryKey: ["5-appdirEdge"],
+    queryKey: ["5-appdirEdge", id],
     queryFn: async ({ signal }) => {
       // return {};
       const resp = await fetch(`5/api/edge`, {
@@ -54,60 +54,26 @@ export const ViewCount = () => {
 
   return (
     <tr>
-      <td>
-        <button
-          onClick={() => {
-            refetchPageDir();
-            refetchAppDir();
-            refetchAppDirEdge();
-          }}
-        >
-          refetch all
-        </button>
-      </td>
+      <td>{id}</td>
       <td>
         {isFetchingPagedir ? (
           "loading"
         ) : (
-          <span
-            style={
-              {
-                //   color: user.id != pagedir?.current && "red",
-              }
-            }
-          >
-            {pagedir?.current}
-          </span>
+          <pre>{JSON.stringify(pagedir, null, 2)}</pre>
         )}
       </td>
       <td>
         {isFetchingappdirNode ? (
           "loading"
         ) : (
-          <span
-            style={
-              {
-                //   color: user.id != appdirNode?.current && "red",
-              }
-            }
-          >
-            {appdirNode?.current}
-          </span>
+          <pre>{JSON.stringify(appdirNode, null, 2)}</pre>
         )}
       </td>
       <td>
         {isFetchingappdirEdge ? (
           "loading"
         ) : (
-          <span
-            style={
-              {
-                //   color: user.id != appdirEdge?.current && "red",
-              }
-            }
-          >
-            {appdirEdge?.current}
-          </span>
+          <pre>{JSON.stringify(appdirEdge, null, 2)}</pre>
         )}
       </td>
     </tr>

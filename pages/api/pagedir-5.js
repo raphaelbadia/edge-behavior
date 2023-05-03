@@ -1,16 +1,20 @@
 import { data } from "./pagedir-5.data";
 
 export default async function handler(req, res) {
+  const initial = data.current;
   await new Promise((resolve) =>
     setTimeout(resolve, Math.floor(Math.random() * 1000))
   );
   data.current += 1;
+  const afterAdd = data.current;
   await new Promise((resolve) =>
     setTimeout(resolve, Math.floor(Math.random() * 1000))
   );
   data.current -= 1;
+  const afterSub = data.current;
   await new Promise((resolve) =>
     setTimeout(resolve, Math.floor(Math.random() * 1000))
   );
-  res.json(data);
+  const inTheEnd = data.current;
+  res.json({ initial, afterAdd, afterSub, inTheEnd });
 }
