@@ -14,7 +14,12 @@ export async function GET(request) {
   await new Promise((resolve) =>
     setTimeout(resolve, Math.floor(Math.random() * 1000))
   );
-  return NextResponse.json(data);
+  return NextResponse.json(data, {
+    headers: {
+      "content-type": "application/json",
+      "cache-control": "private",
+    },
+  });
 }
 
 export const runtime = "experimental-edge";
