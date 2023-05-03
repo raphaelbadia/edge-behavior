@@ -13,6 +13,9 @@ export const ViewCount = ({ id }) => {
     queryFn: async ({ signal }) => {
       const resp = await fetch(`/api/pagedir-5`, {
         signal,
+        headers: {
+          "x-user-id": userId,
+        },
       });
       const data = await resp.json();
       return data;
@@ -29,6 +32,9 @@ export const ViewCount = ({ id }) => {
     queryFn: async ({ signal }) => {
       const resp = await fetch(`5/api?ts=${new Date().toISOString()}`, {
         signal,
+        headers: {
+          "x-user-id": userId,
+        },
       });
       const data = await resp.json();
       return data;
@@ -46,6 +52,9 @@ export const ViewCount = ({ id }) => {
       // return {};
       const resp = await fetch(`5/api/edge`, {
         signal,
+        headers: {
+          "x-user-id": userId,
+        },
       });
       const data = await resp.json();
       return data;
