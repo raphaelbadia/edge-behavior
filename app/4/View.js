@@ -1,9 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const ViewCount = () => {
-  const [userId, setUserId] = useState(1);
+export const ViewCount = ({ userId }) => {
   const {
     data: pagedir,
     status: statusPagedir,
@@ -31,8 +30,7 @@ export const ViewCount = () => {
   } = useQuery({
     queryKey: ["4-appdirNode", userId],
     queryFn: async ({ signal }) => {
-      return {};
-      const resp = await fetch(`2/api`, {
+      const resp = await fetch(`4/api`, {
         signal,
         headers: {
           "x-user-id": userId,
@@ -49,10 +47,9 @@ export const ViewCount = () => {
     isFetching: isFetchingappdirEdge,
     refetch: refetchAppDirEdge,
   } = useQuery({
-    queryKey: ["5-appdirEdge", userId],
+    queryKey: ["4-appdirEdge", userId],
     queryFn: async ({ signal }) => {
-      return {};
-      const resp = await fetch(`2/api/edge`, {
+      const resp = await fetch(`4/api/edge`, {
         signal,
         headers: {
           "x-user-id": userId,
@@ -63,24 +60,22 @@ export const ViewCount = () => {
     },
   });
 
-  useEffect(() => {
-    if (userId > 1) {
-      refetchPageDir();
-      refetchAppDir();
-      refetchAppDirEdge();
-    }
-  }, [userId]);
+  const queryClient = useQueryClient();
 
   return (
     <tr>
       <td>
-        <button
-          onClick={() => {
-            setUserId((id) => id + 1);
-          }}
-        >
-          refetch all (with x-user-id={userId + 1})
-        </button>
+        {userId === 0 ? (
+          <button
+            onClick={() => {
+              queryClient.invalidateQueries([]);
+            }}
+          >
+            refetch all queries
+          </button>
+        ) : (
+          `id: ${userId}`
+        )}
       </td>
       <td>
         {isFetchingPagedir ? (
@@ -89,7 +84,7 @@ export const ViewCount = () => {
           <span
             style={
               {
-                //   color: user.id != pagedir?.current && "red",
+                //   color: user.id != pagedir && "red",
               }
             }
           >
@@ -101,30 +96,14 @@ export const ViewCount = () => {
         {isFetchingappdirNode ? (
           "loading"
         ) : (
-          <span
-            style={
-              {
-                //   color: user.id != appdirNode?.current && "red",
-              }
-            }
-          >
-            result {appdirNode?.current}
-          </span>
+          <span>result {JSON.stringify(appdirNode)}</span>
         )}
       </td>
       <td>
         {isFetchingappdirEdge ? (
           "loading"
         ) : (
-          <span
-            style={
-              {
-                //   color: user.id != appdirEdge?.current && "red",
-              }
-            }
-          >
-            result {appdirEdge?.current}
-          </span>
+          <span>result {JSON.stringify(appdirEdge)}</span>
         )}
       </td>
     </tr>

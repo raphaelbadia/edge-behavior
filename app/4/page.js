@@ -42,7 +42,9 @@ export default function Home() {
           <th>appdir node</th>
           <th>appdir edge</th>
         </tr>
-        <ViewCount />
+        {new Array(20).fill(undefined).map((_, i) => (
+          <ViewCount key={i} userId={i} />
+        ))}
       </table>
     </main>
   );
