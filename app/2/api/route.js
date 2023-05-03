@@ -15,7 +15,7 @@ export async function GET(request) {
   return NextResponse.json(data, {
     headers: {
       "content-type": "application/json",
-      "cache-control": "private",
+      "cache-control": "no-cache",
     },
   });
 }
