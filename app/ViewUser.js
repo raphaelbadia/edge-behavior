@@ -10,7 +10,10 @@ export const ViewUser = ({ user }) => {
   } = useQuery({
     queryKey: ["pagedir", user.id],
     queryFn: async ({ signal }) => {
-      const resp = await fetch(`/api/pagedir?userId=${user.id}`, {
+      const resp = await fetch(`/api/pagedir`, {
+        headers: {
+          "x-user-id": user.id,
+        },
         signal,
       });
       const data = await resp.json();
@@ -26,7 +29,10 @@ export const ViewUser = ({ user }) => {
     queryKey: ["appdirNode", user.id],
     queryFn: async ({ signal }) => {
       // return {};
-      const resp = await fetch(`/api/appdir?userId=${user.id}`, {
+      const resp = await fetch(`/api/appdir`, {
+        headers: {
+          "x-user-id": user.id,
+        },
         signal,
       });
       const data = await resp.json();
@@ -42,7 +48,10 @@ export const ViewUser = ({ user }) => {
     queryKey: ["appdirEdge", user.id],
     queryFn: async ({ signal }) => {
       // return {};
-      const resp = await fetch(`/api/appdir?userId=${user.id}`, {
+      const resp = await fetch(`/api/appdir`, {
+        headers: {
+          "x-user-id": user.id,
+        },
         signal,
       });
       const data = await resp.json();

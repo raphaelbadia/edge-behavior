@@ -5,8 +5,7 @@ const data = {
 };
 
 export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const id = searchParams.get("userId");
+  const id = request.headers.get("x-user-id");
   await new Promise((resolve) =>
     setTimeout(resolve, Math.floor(Math.random() * 1000))
   );
