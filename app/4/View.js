@@ -79,7 +79,7 @@ export const ViewCount = ({ userId }) => {
       </td>
       <td>
         {isFetchingPagedir ? (
-          "loading"
+          ""
         ) : (
           <span
             style={
@@ -94,14 +94,14 @@ export const ViewCount = ({ userId }) => {
       </td>
       <td>
         {isFetchingappdirNode ? (
-          "loading"
+          ""
         ) : (
           <span>result {JSON.stringify(appdirNode)}</span>
         )}
       </td>
       <td>
         {isFetchingappdirEdge ? (
-          "loading"
+          ""
         ) : (
           <span>result {JSON.stringify(appdirEdge)}</span>
         )}
