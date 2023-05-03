@@ -1,6 +1,4 @@
-const data = {
-  current: 0,
-};
+import { data } from "./pagedir-2.data";
 
 export default async function handler(req, res) {
   await new Promise((resolve) =>
