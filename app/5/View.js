@@ -50,7 +50,7 @@ export const ViewCount = ({ id }) => {
     queryKey: ["5-appdirEdge", id],
     queryFn: async ({ signal }) => {
       // return {};
-      const resp = await fetch(`5/api/edge`, {
+      const resp = await fetch(`5/api/edge?ts=${new Date().toISOString()}`, {
         signal,
         headers: {
           "x-user-id": id,
