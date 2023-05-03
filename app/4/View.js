@@ -1,18 +1,22 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 export const ViewCount = () => {
+  const [userId, setUserId] = useState(1);
   const {
     data: pagedir,
     status: statusPagedir,
     isFetching: isFetchingPagedir,
     refetch: refetchPageDir,
   } = useQuery({
-    queryKey: ["2-pagedir"],
+    queryKey: ["4-pagedir", userId],
     queryFn: async ({ signal }) => {
-      const resp = await fetch(`/api/pagedir-2`, {
+      const resp = await fetch(`/api/pagedir-4`, {
         signal,
+        headers: {
+          "x-user-id": userId,
+        },
       });
       const data = await resp.json();
       return data;
@@ -25,10 +29,14 @@ export const ViewCount = () => {
     isFetching: isFetchingappdirNode,
     refetch: refetchAppDir,
   } = useQuery({
-    queryKey: ["2-appdirNode"],
+    queryKey: ["4-appdirNode", userId],
     queryFn: async ({ signal }) => {
-      const resp = await fetch(`2/api?ts=${new Date().toISOString()}`, {
+      return {};
+      const resp = await fetch(`2/api`, {
         signal,
+        headers: {
+          "x-user-id": userId,
+        },
       });
       const data = await resp.json();
       return data;
@@ -41,28 +49,37 @@ export const ViewCount = () => {
     isFetching: isFetchingappdirEdge,
     refetch: refetchAppDirEdge,
   } = useQuery({
-    queryKey: ["2-appdirEdge"],
+    queryKey: ["5-appdirEdge", userId],
     queryFn: async ({ signal }) => {
-      // return {};
+      return {};
       const resp = await fetch(`2/api/edge`, {
         signal,
+        headers: {
+          "x-user-id": userId,
+        },
       });
       const data = await resp.json();
       return data;
     },
   });
 
+  useEffect(() => {
+    if (userId > 1) {
+      refetchPageDir();
+      refetchAppDir();
+      refetchAppDirEdge();
+    }
+  }, [userId]);
+
   return (
     <tr>
       <td>
         <button
           onClick={() => {
-            refetchPageDir();
-            refetchAppDir();
-            refetchAppDirEdge();
+            setUserId((id) => id + 1);
           }}
         >
-          refetch all
+          refetch all (with x-user-id={userId + 1})
         </button>
       </td>
       <td>
@@ -76,7 +93,7 @@ export const ViewCount = () => {
               }
             }
           >
-            {pagedir?.current}
+            result {JSON.stringify(pagedir)}
           </span>
         )}
       </td>
@@ -91,7 +108,7 @@ export const ViewCount = () => {
               }
             }
           >
-            {appdirNode?.current}
+            result {appdirNode?.current}
           </span>
         )}
       </td>
@@ -106,7 +123,7 @@ export const ViewCount = () => {
               }
             }
           >
-            {appdirEdge?.current}
+            result {appdirEdge?.current}
           </span>
         )}
       </td>

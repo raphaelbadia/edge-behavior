@@ -10,9 +10,9 @@ export const ViewCount = () => {
     isFetching: isFetchingPagedir,
     refetch: refetchPageDir,
   } = useQuery({
-    queryKey: ["2-pagedir"],
+    queryKey: ["3-pagedir"],
     queryFn: async ({ signal }) => {
-      const resp = await fetch(`/api/pagedir-2`, {
+      const resp = await fetch(`/api/pagedir-3`, {
         signal,
         headers: {
           "x-user-id": userId,
@@ -29,9 +29,9 @@ export const ViewCount = () => {
     isFetching: isFetchingappdirNode,
     refetch: refetchAppDir,
   } = useQuery({
-    queryKey: ["appdirNode"],
+    queryKey: ["3-appdirNode"],
     queryFn: async ({ signal }) => {
-      const resp = await fetch(`2/api`, {
+      const resp = await fetch(`3/api`, {
         signal,
         headers: {
           "x-user-id": userId,
@@ -48,10 +48,10 @@ export const ViewCount = () => {
     isFetching: isFetchingappdirEdge,
     refetch: refetchAppDirEdge,
   } = useQuery({
-    queryKey: ["appdirEdge"],
+    queryKey: ["3-appdirEdge"],
     queryFn: async ({ signal }) => {
       // return {};
-      const resp = await fetch(`2/api/edge`, {
+      const resp = await fetch(`3/api/edge`, {
         signal,
         headers: {
           "x-user-id": userId,
