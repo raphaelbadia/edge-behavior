@@ -27,7 +27,7 @@ export const ViewCount = () => {
   } = useQuery({
     queryKey: ["appdirNode"],
     queryFn: async ({ signal }) => {
-      const resp = await fetch(`2/api`, {
+      const resp = await fetch(`2/api?ts=${new Date().toISOString()}`, {
         signal,
       });
       const data = await resp.json();
